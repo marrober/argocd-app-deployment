@@ -1,0 +1,12 @@
+apiVersion: v2
+type: application
+name: pacman
+description: pacman
+
+version: 0.1.0
+appVersion: "1.0"
+
+dependencies:
+- name: pacman
+  version: 0.2.5
+  repository: https://marrober.github.io/helm-charts/
