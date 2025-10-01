@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pacman-02-dev-03
+  namespace: pacman-02-argocd
+spec:
+  project: pacman-02
+  destination:
+    namespace: pacman-02-dev-03
+    server: https://kubernetes.default.svc
+  source:
+    path: pacman-02/dev-03
+    targetRevision: main
+    repoURL: https://github.com/marrober/argocd-app-deployment.git
+  syncPolicy:
+    automated: 
+      prune: true 
+      selfHeal: true 
+      allowEmpty: false 
+    syncOptions: 
+      - Validate=true 
+      - CreateNamespace=true 
+      - PrunePropagationPolicy=foreground 
+      - PruneLast=true 
+    retry:
+      limit: 1 
+      backoff:
+        duration: 5s 
+        factor: 2 
+        maxDuration: 20s 
