@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rollout-canary
+  namespace: rollout-01
+spec:
+  rules:
+    ## Replace the host with the result of running the command below to get the nginx ingress controller load balancer address.
+    ## oc get service -n ingress-nginx ingress-nginx-controller -ojsonpath='{.status.loadBalancer.ingress[0].hostname}'
+  - host: a75581eaecb8c466e821c05206eb5fad-bf4dd42100dad8cb.elb.eu-west-1.amazonaws.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-world
+            port:
+              number: 8000
+  ingressClassName: nginx

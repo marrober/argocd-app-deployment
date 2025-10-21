@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-world
+  namespace: helloworld
+spec:
+  rules:
+    ## Replace the host with the result of running the command below to get the nginx ingress controller load balancer address.
+    ## oc get service -n ingress-nginx ingress-nginx-controller -ojsonpath='{.status.loadBalancer.ingress[0].hostname}'
+  - host: hello.nginx.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-world
+            port:
+              number: 8000
+  ingressClassName: nginx
