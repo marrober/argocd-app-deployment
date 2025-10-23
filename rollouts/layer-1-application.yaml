@@ -1,0 +1,33 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+  name: layer-1
+  labels:
+    app: layer-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: layer-1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: layer-1
+        deployment: layer-1
+    spec:
+      containers:
+        - name: layer-1
+          image: 'image-registry.openshift-image-registry.svc:5000/rollout-01/layers:fixed-v1'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: THIS_LAYER_NAME
+              value: layer-1
+            - name: VERSION_ID
+              value: v1
+            - name: NEXT_LAYER_NAME
+              value: layer-2
+          imagePullPolicy: Always

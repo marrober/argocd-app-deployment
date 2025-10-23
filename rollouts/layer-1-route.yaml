@@ -1,0 +1,12 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: layer-1-route
+spec:
+  to:
+    kind: Service
+    name: layer-1
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None

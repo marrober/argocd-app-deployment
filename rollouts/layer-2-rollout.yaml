@@ -4,34 +4,34 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: rollout-canary
+  name: rollout-canary-layer-2
 spec:
-  replicas: 5
-  revisionHistoryLimit: 2
+  replicas: 10
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: rollout-canary
+      app: rollout-canary-layer-2
   template:
     metadata:
       labels:
-        app: rollout-canary
+        app: rollout-canary-layer-2
     spec:
       containers:
-      - name: rollouts-demo
-        image: argoproj/rollouts-demo:blue
-        imagePullPolicy: Always
+      - name: layer-2
+        image: image-registry.openshift-image-registry.svc:5000/rollout-01/layers:fixed-v2
         ports:
         - containerPort: 8080
+        env:
+          - name: THIS_LAYER_NAME
+            value: layer-2
   strategy:
     canary:
       steps:
-      - setWeight: 20
-      # The following pause step will pause the rollout indefinitely until manually resumed.
-      # Rollouts can be manually resumed by running `kubectl argo rollouts promote ROLLOUT`
+      - pause: {}      
+      - setWeight: 10
       - pause: {}
-      - setWeight: 40
-      - pause: {duration: 40s}
-      - setWeight: 60
-      - pause: {duration: 20s}
+      - setWeight: 50
+      - pause: {duration: 60s}
       - setWeight: 80
-      - pause: {duration: 20s}
+      - pause: {duration: 60s}
+      - setWeight: 100

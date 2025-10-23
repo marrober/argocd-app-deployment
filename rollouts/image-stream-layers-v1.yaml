@@ -1,0 +1,14 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: layers
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: fixed-v1
+      from:
+        kind: DockerImage
+        name: 'quay.io/marrober/layers:fixed-v1'
+      importPolicy:
+        importMode: Legacy
