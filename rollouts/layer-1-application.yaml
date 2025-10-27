@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: layer-1
-          image: 'image-registry.openshift-image-registry.svc:5000/rollout-01/layers:fixed-v1'
+          image: 'image-registry.openshift-image-registry.svc:5000/rollouts/layers:fixed-v1'
           ports:
             - containerPort: 8080
               protocol: TCP

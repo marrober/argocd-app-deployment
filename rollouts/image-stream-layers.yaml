@@ -6,6 +6,12 @@ spec:
   lookupPolicy:
     local: false
   tags:
+    - name: fixed-v1
+      from:
+        kind: DockerImage
+        name: 'quay.io/marrober/layers:fixed-v1'
+      importPolicy:
+        importMode: Legacy
     - name: fixed-v2
       from:
         kind: DockerImage

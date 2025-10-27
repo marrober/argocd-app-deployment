@@ -1,1 +1,1 @@
-for i in {1..300}; do curl http://layer-1-route-dev-rollout-01.apps.cluster-4nggh.4nggh.sandbox5381.opentlc.com/get-results; echo "------------------------------------------------------";sleep 10; done
+for i in {1..300}; do curl http://layer-1-route-rollouts.apps.ocp4.mr-openshift.co.uk/get-results; echo "------------------------------------------------------";sleep 10; done
